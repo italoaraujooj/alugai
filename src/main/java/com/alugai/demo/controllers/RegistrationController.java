@@ -5,11 +5,10 @@ import com.alugai.demo.repositories.MyUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin
 public class RegistrationController {
 
     @Autowired
@@ -19,8 +18,12 @@ public class RegistrationController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/register/user")
-    public MyUser createUser(@RequestBody MyUser user){
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return myUserRepository.save(user);
+    public MyUser createUser(@RequestParam String username, @RequestParam String password) {
+        MyUser newUser = new MyUser();
+        newUser.setUsername(username);
+        newUser.setPassword(passwordEncoder.encode(password));
+        newUser.setRole("USER");
+        myUserRepository.save(newUser);
+        return newUser;
     }
 }

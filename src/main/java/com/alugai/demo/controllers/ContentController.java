@@ -1,10 +1,22 @@
 package com.alugai.demo.controllers;
 
+import com.alugai.demo.models.MyUser;
+import com.alugai.demo.repositories.MyUserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ContentController {
+
+    @Autowired
+    private MyUserRepository myUserRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/login")
     public String handleLogin(){
@@ -22,7 +34,10 @@ public class ContentController {
     }
 
     @GetMapping("/user/home")
-    public String handleUserHome(){
-        return "user_home";
+    public String handleUserHome(){ return "user_home"; }
+
+    @GetMapping("/registration")
+    public String handleRegisterUser() {
+        return "register_user";
     }
 }

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+</head>
+<body>
+
+<h2>User Registration</h2>
+
+<form id="registrationForm" action="/register/user" method="POST" onsubmit="submitForm(event)">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
+    <br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+    <br>
+    <button type="submit">Register</button>
+</form>
+
+<script>
+    function submitForm(event) {
+        event.preventDefault();
+
+        var form = document.getElementById("registrationForm");
+        var formData = new FormData(form);
+
+        fetch("/register/user", {
+            method: "POST",
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log("User registered:", data);
+                alert("User registered successfully!");
+            })
+            .catch(error => {
+                console.error("Error registering user:", error);
+                alert("Error registering user. Please try again.");
+            });
+    }
+</script>
+
+</body>
+</html>

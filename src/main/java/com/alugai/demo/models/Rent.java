@@ -25,7 +25,8 @@ public class Rent {
 
     private BusinessHours schedule;
 
-    private double value;
+    @Column(name= "rent-value")
+    private Float rentValue;
 
     private String note;
 }
